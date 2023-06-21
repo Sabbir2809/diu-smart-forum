@@ -1,23 +1,23 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
+const mongoose = require('mongoose');
+const validator = require('validator');
 
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: [true, "A post must have a title"],
+    required: [true, 'A post must have a title'],
     trim: true,
   },
 
   description: {
     type: String,
-    required: [true, "A post must have a description"],
+    required: [true, 'A post must have a description'],
     trim: true,
   },
 
   creator: {
     type: mongoose.Schema.ObjectId,
-    ref: "User",
-    required: [true, "A post must have a creator"],
+    ref: 'User',
+    required: [true, 'A post must have a creator'],
   },
 
   createdAt: {
@@ -27,7 +27,7 @@ const postSchema = new mongoose.Schema({
 
   media: {
     type: String,
-    required: [true, "A file is must required to create a post!"],
+    required: [true, 'A file is must required to create a post!'],
     trim: true,
   },
 
@@ -52,5 +52,5 @@ const postSchema = new mongoose.Schema({
   },
 });
 
-const Post = mongoose.model("Post", postSchema);
+const Post = mongoose.model('Post', postSchema);
 module.exports = Post;

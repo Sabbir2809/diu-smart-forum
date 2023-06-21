@@ -1,36 +1,37 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcryptjs");
+const mongoose = require('mongoose');
+const validator = require('validator');
+const bcrypt = require('bcryptjs');
+require('dotenv').config();
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, "user must have a name"],
+    required: [true, 'user must have a name'],
   },
 
   displayName: {
     type: String,
-    default: "",
+    default: '',
   },
 
   about: {
     type: String,
-    default: "",
+    default: '',
   },
 
   gender: {
     type: String,
-    default: "male",
+    default: 'male',
   },
 
   githubLink: {
-    type: "String",
-    default: "",
+    type: 'String',
+    default: '',
   },
 
   linkedInLink: {
     type: String,
-    default: "",
+    default: '',
   },
 
   technicalSkills: {
@@ -40,10 +41,10 @@ const userSchema = new mongoose.Schema({
 
   email: {
     type: String,
-    required: [true, "user must provide an email"],
+    required: [true, 'user must provide an email'],
     unique: true,
     lowercase: true,
-    validate: [validator.isEmail, "please provide a valid email"],
+    validate: [validator.isEmail, 'please provide a valid email'],
   },
 
   photo: {
@@ -53,19 +54,19 @@ const userSchema = new mongoose.Schema({
 
   password: {
     type: String,
-    required: [true, "Please provide a password"],
+    required: [true, 'Please provide a password'],
     minlength: 8,
   },
 
   role: {
     type: String,
-    enum: ["user", "expert", "admin"],
-    default: "user",
+    enum: ['user', 'expert', 'admin'],
+    default: 'user',
   },
 
   posts: {
     type: mongoose.Schema.ObjectId,
-    ref: "Post",
+    ref: 'Post',
   },
 
   favourites: {
@@ -91,10 +92,10 @@ const userSchema = new mongoose.Schema({
   reputation: {
     type: Number,
     default: 0,
-  }
-
+  },
 });
-userSchema.methods.correctPassword = async (candidatePassword, userPassword) => await bcrypt.compare(candidatePassword, userPassword);
+userSchema.methods.correctPassword = async (candidatePassword, userPassword) =>
+  await bcrypt.compare(candidatePassword, userPassword);
 
-const User = mongoose.model("User", userSchema);
+const User = mongoose.model('User', userSchema);
 module.exports = User;

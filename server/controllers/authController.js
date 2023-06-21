@@ -156,11 +156,11 @@ exports.verifyAccount = catchAsync(async (req, res) => {
 });
 
 exports.login = catchAsync(async (req, res) => {
-  const { name, password } = req.body;
+  const { index, password } = req.body;
 
-  let user = await User.findOne(name);
+  let user = await User.findOne({ email: index });
   if (!user) {
-    user = await User.findOne({ name: name });
+    user = await User.findOne({ name: index });
   }
   if (!user) {
     res.status(404).json('User does not exists!!');
@@ -342,5 +342,7 @@ exports.updateProfile = catchAsync(async (req, res) => {
 
     _user.save();
     createSendToken(_user, 200, res, '9999 years');
-  } catch (err) {}
+  } catch (err) {
+    res.status(200).json({ error: err.message });
+  }
 });

@@ -371,11 +371,7 @@ const DisplayDoubt = () => {
                   </div>
                 </div>
               </div>
-              <div className='comment_editor_outer'>
-                <div className='comment_editor_wrapper'>
-                  <JoditEditor config={commentConfig} value={reply} onChange={(e) => setReply(e)} />
-                </div>
-              </div>
+
               <div className='display_replies_outer'>
                 <div className='display_replies_wrapper'>
                   {requestedDoubt?.replies?.map((reply, idx) => (
@@ -512,6 +508,11 @@ const DisplayDoubt = () => {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+              <div className='comment_editor_outer'>
+                <div className='comment_editor_wrapper'>
+                  <JoditEditor config={commentConfig} value={reply} onChange={(e) => setReply(e)} />
                 </div>
               </div>
             </div>

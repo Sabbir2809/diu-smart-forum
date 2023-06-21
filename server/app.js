@@ -37,10 +37,6 @@ cloudinary.config({
   api_secret: process.env.CLOUD_SECRET_KEY,
 });
 
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-// }
-
 // All Routes
 app.use('/user', userRoutes);
 app.use('/post', postRoutes);

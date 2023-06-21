@@ -1,19 +1,23 @@
-const catchAsync = require("../utils/catchAsync");
-const Doubt = require("../models/doubtModel");
-const User = require("../models/userModel");
-const Reply = require("../models/replyModel");
+const catchAsync = require('../utils/catchAsync');
+const Doubt = require('../models/doubtModel');
+const User = require('../models/userModel');
+const Reply = require('../models/replyModel');
 
 exports.createDoubt = catchAsync(async (req, res) => {
-
   const { doubtTitle, description, tags, media, user, update, id } = req.body;
   try {
     if (update) {
-      const response = await Doubt.updateOne({ _id: id }, { $set: {
-        doubtTitle: doubtTitle,
-        description: description,
-        tags: tags,
-        media: media,
-      }});
+      const response = await Doubt.updateOne(
+        { _id: id },
+        {
+          $set: {
+            doubtTitle: doubtTitle,
+            description: description,
+            tags: tags,
+            media: media,
+          },
+        }
+      );
       res.status(200).json(response);
     } else {
       const newDoubt = await Doubt.create({
@@ -34,8 +38,7 @@ exports.createDoubt = catchAsync(async (req, res) => {
   } catch (err) {
     res.status(500).json("Couldn't create doubt!! Please try again!");
   }
-}
-);
+});
 
 exports.deleteDoubt = catchAsync(async (req, res) => {
   const { doubt, user } = req.body;
@@ -44,7 +47,7 @@ exports.deleteDoubt = catchAsync(async (req, res) => {
     const _owner = await User.findById(_doubt?.creator);
 
     if (_doubt.creator?.toString() !== user?._id?.toString()) {
-      res.status(400).json("You are not allowed to delete this post!");
+      res.status(400).json('You are not allowed to delete this post!');
       return;
     }
 
@@ -58,7 +61,6 @@ exports.deleteDoubt = catchAsync(async (req, res) => {
     res.status(500).json("Couldn't delete doubt!! Please try again!");
   }
 });
-
 
 exports.addReply = catchAsync(async (req, res) => {
   const { doubt, user, reply } = req.body;
@@ -83,13 +85,14 @@ exports.addReply = catchAsync(async (req, res) => {
       replyInfo.push({ replyData: reply, ownerInfo: await User.findById(reply.creator) });
 
     res.status(201).json({
-      doubtData: _doubt, ownerInfo: user, replies: replyInfo
+      doubtData: _doubt,
+      ownerInfo: user,
+      replies: replyInfo,
     });
   } catch (err) {
     res.status(500).json("Couldn't add reply!! Please try again!");
   }
 });
-
 
 exports.vote = catchAsync(async (req, res) => {
   const { doubtData, user, type } = req.body;
@@ -98,23 +101,17 @@ exports.vote = catchAsync(async (req, res) => {
     const doubt = await Doubt.findById(doubtData._id);
     const owner = await User.findById(doubt.creator);
 
-    if (type === "up") {
+    if (type === 'up') {
       if (doubt.downVotes.indexOf(user._id) !== -1)
         doubt.downVotes.splice(doubt.downVotes.indexOf(user._id), 1);
 
-      if (doubt.upVotes.indexOf(user._id) === -1)
-        doubt.upVotes.push(user._id);
-      else
-        doubt.upVotes.splice(doubt.upVotes.indexOf(user._id), 1);
-    }
-    else {
-      if (doubt.upVotes.indexOf(user._id) !== -1)
-        doubt.upVotes.splice(doubt.upVotes.indexOf(user._id), 1);
+      if (doubt.upVotes.indexOf(user._id) === -1) doubt.upVotes.push(user._id);
+      else doubt.upVotes.splice(doubt.upVotes.indexOf(user._id), 1);
+    } else {
+      if (doubt.upVotes.indexOf(user._id) !== -1) doubt.upVotes.splice(doubt.upVotes.indexOf(user._id), 1);
 
-      if (doubt.downVotes.indexOf(user._id) === -1)
-        doubt.downVotes.push(user._id);
-      else
-        doubt.downVotes.splice(doubt.downVotes.indexOf(user._id), 1);
+      if (doubt.downVotes.indexOf(user._id) === -1) doubt.downVotes.push(user._id);
+      else doubt.downVotes.splice(doubt.downVotes.indexOf(user._id), 1);
     }
 
     await doubt.save();
@@ -127,7 +124,7 @@ exports.vote = catchAsync(async (req, res) => {
 
     res.status(200).json({ doubtData: doubt, ownerInfo: owner, replies: replyInfo });
   } catch (err) {
-    res.status(500).json("Error occurred while processing! Please try again!");
+    res.status(500).json('Error occurred while processing! Please try again!');
   }
 });
 
@@ -141,13 +138,13 @@ exports.fetchAll = catchAsync(async (req, res) => {
       const reqInfo = new Object({
         name: userDetails?.name,
         photo: userDetails?.photo,
-        reputation: userDetails?.reputation
+        reputation: userDetails?.reputation,
       });
       response.push({ doubtDetails: doubt, ownerInfo: reqInfo });
     }
     res.status(200).json(response);
   } catch (err) {
-    res.status(500).json("Error occurred while processing! Please try again!");
+    res.status(500).json('Error occurred while processing! Please try again!');
   }
 });
 
@@ -168,7 +165,7 @@ exports.fetchSingleDoubt = catchAsync(async (req, res) => {
     const owner = await User.findById(doubt.creator);
     res.status(200).json({ doubtData: doubt, ownerInfo: owner, replies: replyInfo });
   } catch (err) {
-    req.status(500).json("Internal server error! Please try again!");
+    req.status(500).json('Internal server error! Please try again!');
   }
 });
 
@@ -179,35 +176,27 @@ exports.voteToReply = catchAsync(async (req, res) => {
     const doubtOwner = doubt?.ownerInfo;
 
     const _reply = await Reply.findById(reply?._id);
-    if (type === "up") {
+    if (type === 'up') {
       const dIdx = _reply.downVotes.indexOf(user?._id);
-      if (dIdx !== -1)
-        _reply.downVotes.splice(dIdx, 1);
+      if (dIdx !== -1) _reply.downVotes.splice(dIdx, 1);
 
       const uIdx = _reply.upVotes.indexOf(user?._id);
-      if (uIdx === -1)
-        _reply.upVotes.push(user?._id);
-      else
-        _reply.upVotes.splice(uIdx, 1);
+      if (uIdx === -1) _reply.upVotes.push(user?._id);
+      else _reply.upVotes.splice(uIdx, 1);
     } else {
       const uIdx = _reply.upVotes.indexOf(user?._id);
-      if (uIdx !== -1)
-        _reply.upVotes.splice(uIdx, 1);
+      if (uIdx !== -1) _reply.upVotes.splice(uIdx, 1);
 
       const dIdx = _reply.downVotes.indexOf(user?._id);
-      if (dIdx === -1)
-        _reply.downVotes.push(user?._id);
-      else
-        _reply.downVotes.splice(dIdx, 1);
+      if (dIdx === -1) _reply.downVotes.push(user?._id);
+      else _reply.downVotes.splice(dIdx, 1);
     }
     _reply.save();
     const owner = await User.findById(_reply.creator);
 
     const replies = doubt?.replies?.map((__reply) => {
-      if (__reply?.replyData?._id?.toString() !== _reply._id?.toString())
-        return __reply;
-      else
-        return { replyData: _reply, ownerInfo: owner };
+      if (__reply?.replyData?._id?.toString() !== _reply._id?.toString()) return __reply;
+      else return { replyData: _reply, ownerInfo: owner };
     });
 
     res.status(200).json({ doubtData: doubtData, ownerInfo: doubtOwner, replies: replies });
@@ -222,7 +211,7 @@ exports.sortReplies = catchAsync(async (req, res) => {
     const doubt = await Doubt.findById(id);
 
     let doubtReplies = [];
-    if (type === "most_recent")
+    if (type === 'most_recent')
       doubtReplies = await Reply.find({ replyToPost: doubt._id }).sort({ createdAt: -1 });
     else {
       doubtReplies = await Reply.find({ replyToPost: doubt._id });
