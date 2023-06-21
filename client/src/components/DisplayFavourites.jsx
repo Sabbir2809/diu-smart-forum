@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { BootstrapTooltip } from '../components/Navbar';
-
 import '../style/Profile.css';
-
 import {
   Alert,
   Backdrop,

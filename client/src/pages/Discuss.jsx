@@ -157,9 +157,6 @@ const Discuss = () => {
                       </IconButton>
                     </Search>
                   </div>
-                  <div className='add-newpost-outer'>
-                    <div className='add-newpost-wrapper'></div>
-                  </div>
                 </div>
               </div>
             </div>
@@ -170,7 +167,7 @@ const Discuss = () => {
                     <div className='doubt-preview-wrapper'>
                       <div className='dynamic-info'>
                         <div className='owner-profile'>
-                          <Avatar style={{ width: 63, height: 63 }} src={ownerInfo?.photo} />
+                          <Avatar style={{ width: 40, height: 40 }} src={ownerInfo?.photo} />
                         </div>
                         <div className='doubt-info'>
                           <div className='doubt-title-and-tags-info'>
