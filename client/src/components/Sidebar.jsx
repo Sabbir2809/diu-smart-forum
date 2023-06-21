@@ -1,4 +1,8 @@
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useLogoutMutation } from '../services/appApi';
+import { useSelector } from 'react-redux';
+
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import MuiDrawer from '@mui/material/Drawer';
@@ -15,16 +19,13 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeRounded from '@mui/icons-material/HomeRounded';
+import ShareRounded from '@mui/icons-material/ShareRounded';
 import AddRounded from '@mui/icons-material/AddRounded';
 import NearMeRounded from '@mui/icons-material/NearMeRounded';
 import LoginRounded from '@mui/icons-material/LoginRounded';
 import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ExitToAppRounded from '@mui/icons-material/ExitToAppRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import { useNavigate } from 'react-router-dom';
-import { useLogoutMutation } from '../services/appApi';
-import { useSelector } from 'react-redux';
 import Star from '@mui/icons-material/Star';
 
 const drawerWidth = 240;
@@ -158,9 +159,9 @@ export default function Sidebar() {
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
                 }}>
-                <HomeRounded className='customized_blue font_verdana' />
+                <NearMeRounded className='customized_blue font_verdana' />
               </ListItemIcon>
-              <ListItemText primary={'Home'} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary={'Discuss'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
           {user && (
@@ -186,8 +187,53 @@ export default function Sidebar() {
               </ListItemButton>
             </ListItem>
           )}
-
           <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              onClick={() => navigate('/share-file')}
+              className='customized_blue font_verdana'
+              onMouseEnter={handleOpenEvent}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}>
+                <ShareRounded className='customized_blue font_verdana' />
+              </ListItemIcon>
+              <ListItemText primary={'Share'} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
+          {user && (
+            <ListItem disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                onClick={() => navigate('/starred')}
+                className='customized_blue font_verdana'
+                onMouseEnter={handleOpenEvent}
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}>
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}>
+                  <Star className='customized_blue font_verdana' />
+                </ListItemIcon>
+                <ListItemText primary={'Starred'} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          )}
+
+          {/* <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
               onClick={() => navigate('/discuss')}
               className='customized_blue font_verdana'
@@ -207,7 +253,7 @@ export default function Sidebar() {
               </ListItemIcon>
               <ListItemText primary={'Discuss'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
 
           {!user && (
             <ListItem disablePadding sx={{ display: 'block' }}>
@@ -278,29 +324,7 @@ export default function Sidebar() {
               </ListItemButton>
             </ListItem>
           )}
-          {user && (
-            <ListItem disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                onClick={() => navigate('/starred')}
-                className='customized_blue font_verdana'
-                onMouseEnter={handleOpenEvent}
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
-                }}>
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}>
-                  <Star className='customized_blue font_verdana' />
-                </ListItemIcon>
-                <ListItemText primary={'Starred'} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          )}
+
           {user && (
             <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton

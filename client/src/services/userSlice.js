@@ -1,30 +1,18 @@
-import { createSlice } from "@reduxjs/toolkit";
-import AppApi from "./appApi";
+import { createSlice } from '@reduxjs/toolkit';
+import AppApi from './appApi';
 
 export const userSlice = createSlice({
-  name: "user",
+  name: 'user',
   initialState: null,
   reducers: {
     logout: (state) => null,
   },
 
   extraReducers: (builder) => {
-    builder.addMatcher(
-      AppApi.endpoints.loginUser.matchFulfilled,
-      (state, { payload }) => payload
-    );
-    builder.addMatcher(
-      AppApi.endpoints.logout.matchFulfilled,
-      (state, { payload }) => payload
-    );
-    builder.addMatcher(
-      AppApi.endpoints.addPostToFavourites.matchFulfilled,
-      (state, {payload}) => payload
-    );
-    builder.addMatcher(
-      AppApi.endpoints.updateUserProfile.matchFulfilled,
-      (state, { payload }) => payload
-    )
+    builder.addMatcher(AppApi.endpoints.loginUser.matchFulfilled, (state, { payload }) => payload);
+    builder.addMatcher(AppApi.endpoints.logout.matchFulfilled, (state, { payload }) => payload);
+    builder.addMatcher(AppApi.endpoints.addPostToFavourites.matchFulfilled, (state, { payload }) => payload);
+    builder.addMatcher(AppApi.endpoints.updateUserProfile.matchFulfilled, (state, { payload }) => payload);
   },
 });
 

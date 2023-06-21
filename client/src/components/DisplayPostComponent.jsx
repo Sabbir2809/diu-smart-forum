@@ -1,3 +1,6 @@
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useFetchTagsMutation, useCreateDoubtMutation } from '../services/appApi';
 import {
   AttachFileRounded,
   CloseRounded,
@@ -8,10 +11,6 @@ import {
 import { Backdrop, Button, Chip, CircularProgress, Dialog, IconButton, TextField } from '@mui/material';
 import JoditEditor from 'jodit-react';
 import { enqueueSnackbar, SnackbarProvider } from 'notistack';
-import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-
-import { useFetchTagsMutation, useCreateDoubtMutation } from '../services/appApi';
 import { BootstrapTooltip } from './Navbar';
 
 const DisplayPostComponent = ({ existingDoubt }) => {
@@ -126,7 +125,7 @@ const DisplayPostComponent = ({ existingDoubt }) => {
         enqueueSnackbar(`Doubt ${!existingDoubt ? 'posted' : 'updated'} successfully!`, {
           autoHideDuration: 3000,
         });
-        window.location.href = '/discuss';
+        window.location.href = '/';
       } else {
         enqueueSnackbar(error.data.message, {
           variant: 'error',
@@ -189,7 +188,7 @@ const DisplayPostComponent = ({ existingDoubt }) => {
               <div className='btn-group'>
                 <Button
                   onClick={() => {
-                    window.location.href = '/discuss';
+                    window.location.href = '/';
                   }}
                   className='custom_btn'>
                   Close

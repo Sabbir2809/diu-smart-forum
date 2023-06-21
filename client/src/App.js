@@ -1,62 +1,50 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import HomePage from './pages/HomePage';
-import ForgotPassword from './pages/ForgotPassword';
-import ResetPassword from './pages/ResetPassword';
-import CreatePost from './components/CreatePost';
-
-import { AppContext } from './context/AppContext';
 import { useSelector } from 'react-redux';
+import { AppContext } from './context/AppContext';
 
-import Sidebar from './components/Sidebar';
-
-import './App.css';
-import DisplayProfile from './components/DisplayProfile';
-import DisplayFavourites from './components/DisplayFavourites';
-import Discuss from './pages/Discuss';
-import EditProfile from './components/EditProfile';
+import CreatePost from './components/CreatePost';
 import DisplayDoubt from './pages/DisplayDoubt';
-import Signup from './pages/Signup';
+import DisplayFavourites from './components/DisplayFavourites';
+import DisplayProfile from './components/DisplayProfile';
+import EditProfile from './components/EditProfile';
+import ForgotPassword from './pages/ForgotPassword';
+import HomePage from './pages/HomePage';
 import Login from './pages/Login';
-import Response from './../src/pages/Response';
+import ResetPassword from './pages/ResetPassword';
+import Signup from './pages/Signup';
+import Sidebar from './components/Sidebar';
+import Discuss from './pages/Discuss';
+import Response from './pages/Response';
+import './App.css';
 
 function App() {
   const user = useSelector((state) => state?.user);
   const [status, setStatus] = useState(false);
+
+  const routes = [
+    { path: '/', element: <Discuss /> },
+    { path: '/share-file', element: <HomePage /> },
+    { path: '/signup', element: user ? <Discuss /> : <Signup /> },
+    { path: '/login', element: user ? <Discuss /> : <Login /> },
+    { path: '/create/file', element: user ? <CreatePost /> : <Login /> },
+    { path: '/account', element: user ? <DisplayProfile /> : <Login /> },
+    { path: '/starred', element: user ? <DisplayFavourites /> : <Login /> },
+    { path: '/edit/profile', element: user ? <EditProfile /> : <Login /> },
+    { path: '/doubt', element: <DisplayDoubt /> },
+    { path: '/forgot', element: <ForgotPassword /> },
+    { path: '/new/password', element: <ResetPassword /> },
+    { path: '/response', element: <Response /> },
+  ];
 
   return (
     <AppContext.Provider value={{ user, status, setStatus }}>
       <BrowserRouter>
         <Sidebar />
         <Routes>
-          <Route path='/' element={<Discuss />} />
-
-          {!user && <Route path='/signup' element={<Signup></Signup>} />}
-          {user && <Route path='/signup' element={<HomePage />} />}
-
-          {!user && <Route path='/login' element={<Login></Login>} />}
-          {user && <Route path='/login' element={<HomePage />} />}
-
-          {!user && <Route path='/create/file' element={<Login />} />}
-          {user && <Route path='/create/file' element={<CreatePost />} />}
-
-          {user && <Route path='/account' element={<DisplayProfile />} />}
-          {!user && <Route path='/account' element={<Login />} />}
-
-          {user && <Route path='/starred' element={<DisplayFavourites />} />}
-          {!user && <Route path='/account' element={<Login />} />}
-
-          {user && <Route path='/edit/profile' element={<EditProfile />} />}
-          {!user && <Route path='/edit/profile' element={<Login />} />}
-
-          <Route path='/discuss' element={<Discuss />} />
-          <Route path='/doubt' element={<DisplayDoubt />} />
-
-          <Route path='/forgot' element={<ForgotPassword />} />
-          <Route path='/new/password' element={<ResetPassword />} />
-
-          <Route path='/response' element={<Response></Response>} />
+          {routes.map((route) => (
+            <Route key={route.path} path={route.path} element={route.element} />
+          ))}
         </Routes>
       </BrowserRouter>
     </AppContext.Provider>

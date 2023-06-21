@@ -1,8 +1,7 @@
-import { Alert, CircularProgress } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-
 import '../style/Signup.css';
+import { Alert, CircularProgress } from '@mui/material';
 
 const Response = (props) => {
   const [response, setResponse] = useState(props?.response || 'Processing');

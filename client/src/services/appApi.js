@@ -1,186 +1,185 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const appApi = createApi({
-  reducerPath: "appApi",
+  reducerPath: 'appApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:5000/",
+    baseUrl: 'http://localhost:5000/',
   }),
   endpoints: (builder) => ({
     signUpUser: builder.mutation({
       query: (user) => ({
-        url: "/user/signup",
-        method: "POST",
+        url: '/user/signup',
+        method: 'POST',
         body: user,
       }),
     }),
 
     loginUser: builder.mutation({
       query: (data) => ({
-        url: "/user/login",
-        method: "POST",
+        url: '/user/login',
+        method: 'POST',
         body: data,
       }),
     }),
 
     logout: builder.mutation({
       query: (data) => ({
-        url: "/user/logout",
-        method: "POST",
+        url: '/user/logout',
+        method: 'POST',
         body: data,
       }),
     }),
 
     requestNewPassword: builder.mutation({
       query: (data) => ({
-        url: "/user/new/password",
-        method: "POST",
+        url: '/user/new/password',
+        method: 'POST',
         body: data,
       }),
     }),
 
     resetPassword: builder.mutation({
       query: (data) => ({
-        url: "/user/reset/password",
-        method: "POST",
+        url: '/user/reset/password',
+        method: 'POST',
         body: data,
       }),
     }),
 
     fetchTags: builder.mutation({
       query: () => ({
-        url: "/tags",
-        method: "GET",
+        url: '/tags',
+        method: 'GET',
       }),
     }),
 
     createPost: builder.mutation({
       query: (data) => ({
-        url: "/post/create",
-        method: "post",
+        url: '/post/create',
+        method: 'post',
         body: data,
       }),
     }),
 
     fetchAllPosts: builder.mutation({
       query: (data) => ({
-        url: "/post/fetch/all",
-        method: "post",
+        url: '/post/fetch/all',
+        method: 'post',
         body: data,
       }),
     }),
 
     fetchPostWithOptions: builder.mutation({
       query: (data) => ({
-        url: "/post/fetch/options",
-        method: "post",
+        url: '/post/fetch/options',
+        method: 'post',
         body: data,
       }),
     }),
 
     addPostToFavourites: builder.mutation({
       query: (data) => ({
-        url: "/user/add/starred",
-        method: "post",
+        url: '/user/add/starred',
+        method: 'post',
         body: data,
       }),
     }),
 
     fetchStarred: builder.mutation({
       query: (data) => ({
-        url: "/user/fetch/favourites",
-        method: "post",
+        url: '/user/fetch/favourites',
+        method: 'post',
         body: data,
       }),
     }),
 
     addVote: builder.mutation({
       query: (data) => ({
-        url: "/post/vote",
-        method: "post",
+        url: '/post/vote',
+        method: 'post',
         body: data,
-        headers: { authorization: "Bearer " + localStorage.getItem("token") },
+        headers: { authorization: 'Bearer ' + localStorage.getItem('token') },
       }),
     }),
 
     fetchUserData: builder.mutation({
       query: (data) => ({
-        url: "/user/fetch/data",
-        method: "post",
+        url: '/user/fetch/data',
+        method: 'post',
         body: data,
       }),
     }),
 
     fetchAllDoubts: builder.mutation({
       query: () => ({
-        url: "/doubts/fetch/all",
-        method: "get",
+        url: '/doubts/fetch/all',
+        method: 'get',
       }),
     }),
 
     createDoubt: builder.mutation({
       query: (data) => ({
-        url: "/doubts/create",
-        method: "post",
+        url: '/doubts/create',
+        method: 'post',
         body: data,
       }),
     }),
 
     updateUserProfile: builder.mutation({
       query: (data) => ({
-        url: "/user/update/profile",
-        method: "post",
+        url: '/user/update/profile',
+        method: 'post',
         body: data,
       }),
     }),
 
     fetchSingleDoubt: builder.mutation({
       query: (data) => ({
-        url: "/doubts/fetch/doubt",
-        method: "post",
+        url: '/doubts/fetch/doubt',
+        method: 'post',
         body: data,
       }),
     }),
 
     addVoteToDoubt: builder.mutation({
       query: (data) => ({
-        url: "/doubts/vote",
-        method: "post",
+        url: '/doubts/vote',
+        method: 'post',
         body: data,
       }),
     }),
 
     addReplyToDoubt: builder.mutation({
       query: (data) => ({
-        url: "/doubts/create/reply",
-        method: "post",
+        url: '/doubts/create/reply',
+        method: 'post',
         body: data,
       }),
     }),
 
     addVoteToReply: builder.mutation({
       query: (data) => ({
-        url: "/doubts/vote/reply",
-        method: "post",
+        url: '/doubts/vote/reply',
+        method: 'post',
         body: data,
       }),
     }),
 
     sortReplies: builder.mutation({
       query: (data) => ({
-        url: "/doubts/sort/reply",
-        method: "post",
+        url: '/doubts/sort/reply',
+        method: 'post',
         body: data,
       }),
     }),
 
     deleteDoubt: builder.mutation({
       query: (data) => ({
-        url: "/doubts/delete",
-        method: "post",
+        url: '/doubts/delete',
+        method: 'post',
         body: data,
       }),
     }),
-
   }),
 });
 
@@ -208,4 +207,5 @@ export const {
   useSortRepliesMutation,
   useDeleteDoubtMutation,
 } = appApi;
+
 export default appApi;

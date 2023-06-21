@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
+import { useUpdateUserProfileMutation } from '../services/appApi';
+import { useSelector } from 'react-redux';
+import '../style/EditProfile.css';
+import { BootstrapTooltip } from './Navbar';
+import { enqueueSnackbar, SnackbarProvider } from 'notistack';
 
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded';
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
 
-import { useUpdateUserProfileMutation } from '../services/appApi';
-
-import { useSelector } from 'react-redux';
-
-import '../style/EditProfile.css';
-import { BootstrapTooltip } from './Navbar';
 import {
   Button,
   Chip,
@@ -22,8 +21,6 @@ import {
   Select,
   TextField,
 } from '@mui/material';
-
-import { enqueueSnackbar, SnackbarProvider } from 'notistack';
 
 const EditProfile = () => {
   const user = useSelector((state) => state?.user?.data);

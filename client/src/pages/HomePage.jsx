@@ -1,9 +1,13 @@
-import SearchIcon from '@mui/icons-material/Search';
 import React, { useEffect, useState } from 'react';
+import { BootstrapTooltip } from '../components/Navbar';
+import { useSelector } from 'react-redux';
+import { useAddPostToFavouritesMutation, useAddVoteMutation } from '../services/appApi';
 import { useFetchTagsMutation, useFetchAllPostsMutation } from '../services/appApi';
+import '../style/HomePage.css';
+
+import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import {
   Alert,
@@ -24,7 +28,6 @@ import CardHeader from '@mui/material/CardHeader';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Chip from '@mui/material/Chip';
-
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
@@ -34,13 +37,6 @@ import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
-
-import { BootstrapTooltip } from '../components/Navbar';
-import { useSelector } from 'react-redux';
-
-import '../style/HomePage.css';
-
-import { useAddPostToFavouritesMutation, useAddVoteMutation } from '../services/appApi';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

@@ -1,23 +1,17 @@
-import { Avatar, Button, Chip, IconButton, InputLabel } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Avatar, Button, Chip, IconButton, InputLabel } from '@mui/material';
 import { useFetchAllDoubtsMutation, useFetchTagsMutation } from '../services/appApi';
-
 import { styled, alpha } from '@mui/material/styles';
+import { enqueueSnackbar, SnackbarProvider } from 'notistack';
+import { useNavigate } from 'react-router-dom';
 import InputBase from '@mui/material/InputBase';
-
-import '../style/Discuss.css';
-
 import CloseRounded from '@mui/icons-material/CloseRounded';
 import AddRoundedIcon from '@mui/icons-material/AddRounded';
 import WhatshotRoundedIcon from '@mui/icons-material/WhatshotRounded';
 import ArrowDropUpSharpIcon from '@mui/icons-material/ArrowDropUpSharp';
-
-import { enqueueSnackbar, SnackbarProvider } from 'notistack';
-
-import { useNavigate } from 'react-router-dom';
 import VisibilityRounded from '@mui/icons-material/VisibilityRounded';
 import DisplayPostComponent from '../components/DisplayPostComponent';
-// import parse from "html-react-parser";
+import '../style/Discuss.css';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',

@@ -1,10 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { combineReducers } from "redux";
-import thunk from "redux-thunk";
-import appApi from "./appApi";
-import userSlice from "./userSlice";
-import storage from "redux-persist/lib/storage";
-import persistReducer from "redux-persist/es/persistReducer";
+import thunk from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import { combineReducers } from 'redux';
+import storage from 'redux-persist/lib/storage';
+import persistReducer from 'redux-persist/es/persistReducer';
+import appApi from './appApi';
+import userSlice from './userSlice';
 
 const customReducer = combineReducers({
   user: userSlice,
@@ -12,7 +12,7 @@ const customReducer = combineReducers({
 });
 
 const persistConfiguration = {
-  key: "root",
+  key: 'root',
   storage,
   blackList: [appApi.reducerPath],
 };

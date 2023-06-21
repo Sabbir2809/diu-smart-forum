@@ -1,16 +1,16 @@
-import { Alert, Backdrop, Button, CircularProgress, TextField } from '@mui/material';
-import React, { useState } from 'react';
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { BootstrapTooltip } from './Navbar';
+import { useFetchAllPostsMutation, useFetchTagsMutation } from '../services/appApi';
+import '../style/Signup.css';
+import '../style/CreatePost.css';
+import { Alert, Backdrop, Button, CircularProgress, TextField } from '@mui/material';
+
 import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
-import { BootstrapTooltip } from './Navbar';
-import '../style/Signup.css';
-import '../style/CreatePost.css';
-import { useFetchAllPostsMutation, useFetchTagsMutation } from '../services/appApi';
 
 const CreatePost = () => {
   const user = useSelector((state) => state?.user);
@@ -97,8 +97,8 @@ const CreatePost = () => {
           setSubmitted(false);
 
           setTimeout(() => {
-            navigate('/');
-          }, 1500);
+            navigate('/share-file');
+          }, 1000);
         }
       });
     } catch (ex) {
