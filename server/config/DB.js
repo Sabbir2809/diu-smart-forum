@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB Connection
-const connectDB = async (options = {}) => {
+exports.connectDB = async (options = {}) => {
   try {
     mongoose.set('strictQuery', false);
     // connect
@@ -16,6 +16,3 @@ const connectDB = async (options = {}) => {
     console.error('Could Not Connect to MongoDB: ', error.message);
   }
 };
-
-// export
-module.exports = connectDB;
