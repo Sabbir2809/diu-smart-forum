@@ -33,6 +33,7 @@ const createSendToken = (user, statusCode, res, expiryTime) => {
   });
 };
 
+// signup
 exports.signup = catchAsync(async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -155,6 +156,7 @@ exports.verifyAccount = catchAsync(async (req, res) => {
   }
 });
 
+// login
 exports.login = catchAsync(async (req, res) => {
   const { index, password } = req.body;
 
@@ -177,10 +179,12 @@ exports.login = catchAsync(async (req, res) => {
   }
 });
 
+// logout
 exports.logout = catchAsync(async (req, res) => {
   return res.status(200).json(null);
 });
 
+// forget password
 exports.forgotPassword = catchAsync(async (req, res, next) => {
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
@@ -227,6 +231,7 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
   }
 });
 
+// reset password
 exports.resetPassword = catchAsync(async (req, res, next) => {
   const { token, newPassword } = req.body;
 
@@ -251,6 +256,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
   }
 });
 
+// profile
 exports.myProfile = catchAsync(async (req, res, next) => {
   res.status(200).json({
     data: req.user,
@@ -286,6 +292,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
 });
 
+// add to starred
 exports.addToStarred = catchAsync(async (req, res) => {
   const { postData, user } = req.body;
   try {
@@ -301,6 +308,7 @@ exports.addToStarred = catchAsync(async (req, res) => {
   }
 });
 
+// favourites
 exports.favourites = catchAsync(async (req, res) => {
   const { user } = req.body;
   const response = [];
@@ -314,6 +322,7 @@ exports.favourites = catchAsync(async (req, res) => {
   res.status(200).json(response);
 });
 
+// fetch data
 exports.fetchData = catchAsync(async (req, res) => {
   const { name, user } = req.body;
   try {
@@ -324,6 +333,7 @@ exports.fetchData = catchAsync(async (req, res) => {
   }
 });
 
+// update profile
 exports.updateProfile = catchAsync(async (req, res) => {
   const { displayName, password, gender, about, githubLink, linkedInLink, technicalSkills, photo, user } =
     req.body;

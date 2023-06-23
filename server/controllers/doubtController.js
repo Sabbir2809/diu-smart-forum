@@ -1,8 +1,10 @@
+// Dependencies
 const catchAsync = require('../utils/catchAsync');
 const Doubt = require('../models/doubtModel');
 const User = require('../models/userModel');
 const Reply = require('../models/replyModel');
 
+// create doubt
 exports.createDoubt = catchAsync(async (req, res) => {
   const { doubtTitle, description, tags, media, user, update, id } = req.body;
   try {
@@ -40,6 +42,7 @@ exports.createDoubt = catchAsync(async (req, res) => {
   }
 });
 
+// delete doubt
 exports.deleteDoubt = catchAsync(async (req, res) => {
   const { doubt, user } = req.body;
   try {
@@ -62,6 +65,7 @@ exports.deleteDoubt = catchAsync(async (req, res) => {
   }
 });
 
+// add reply doubt
 exports.addReply = catchAsync(async (req, res) => {
   const { doubt, user, reply } = req.body;
   try {
@@ -94,6 +98,7 @@ exports.addReply = catchAsync(async (req, res) => {
   }
 });
 
+// doubt vote
 exports.vote = catchAsync(async (req, res) => {
   const { doubtData, user, type } = req.body;
 
@@ -128,6 +133,7 @@ exports.vote = catchAsync(async (req, res) => {
   }
 });
 
+// fetch all doubt
 exports.fetchAll = catchAsync(async (req, res) => {
   try {
     const doubts = await Doubt.find().sort({ createdAt: -1 });
@@ -148,6 +154,7 @@ exports.fetchAll = catchAsync(async (req, res) => {
   }
 });
 
+// fetch single doubt
 exports.fetchSingleDoubt = catchAsync(async (req, res) => {
   const { id } = req.body;
   try {
@@ -169,6 +176,7 @@ exports.fetchSingleDoubt = catchAsync(async (req, res) => {
   }
 });
 
+// vote to reply doubt
 exports.voteToReply = catchAsync(async (req, res) => {
   const { doubt, reply, type, user } = req.body;
   try {
@@ -205,6 +213,7 @@ exports.voteToReply = catchAsync(async (req, res) => {
   }
 });
 
+// sort replies doubt
 exports.sortReplies = catchAsync(async (req, res) => {
   const { id, type } = req.body;
   try {

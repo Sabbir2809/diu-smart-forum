@@ -1,13 +1,14 @@
+// Dependencies
 const express = require('express');
-const postController = require('./../controllers/postController');
-const authController = require('./../controllers/authController');
-
 const router = express.Router();
+const { protect } = require('../controllers/authController');
+const { createPost, fetchAll, fetchOptions, vote } = require('./../controllers/postController');
 
-router.route('/create').post(authController.protect, postController.createPost);
+// post router
+router.post('/create', protect, createPost);
+router.post('/fetch/all', fetchAll);
+router.post('/fetch/options', protect, fetchOptions);
+router.post('/vote', protect, vote);
 
-router.route('/fetch/all').post(postController.fetchAll);
-router.route('/fetch/options').post(authController.protect, postController.fetchOptions);
-router.route('/vote').post(authController.protect, postController.vote);
-
+// export
 module.exports = router;

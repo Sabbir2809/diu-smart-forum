@@ -1,9 +1,11 @@
+// Dependencies
 const catchAsync = require('./../utils/catchAsync');
 const Post = require('../models/postModel');
 const User = require('../models/userModel');
 const Doubt = require('../models/doubtModel');
 const Reply = require('../models/replyModel');
 
+// create file Post
 exports.createPost = catchAsync(async (req, res) => {
   const { title, description, tags, media, user } = req.body;
   try {
@@ -24,6 +26,7 @@ exports.createPost = catchAsync(async (req, res) => {
   }
 });
 
+// fetch all file
 exports.fetchAll = catchAsync(async (req, res) => {
   try {
     const allPosts = await Post.find({}).sort({ createdAt: -1 });
@@ -39,6 +42,7 @@ exports.fetchAll = catchAsync(async (req, res) => {
   }
 });
 
+// fetch options
 exports.fetchOptions = catchAsync(async (req, res) => {
   const { options, name } = req.body;
   const requestedUser = await User.findOne({ name: name });
@@ -66,6 +70,7 @@ exports.fetchOptions = catchAsync(async (req, res) => {
   }
 });
 
+// vote
 exports.vote = catchAsync(async (req, res) => {
   const { postData, type, user } = req.body;
   try {

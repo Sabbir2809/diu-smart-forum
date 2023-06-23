@@ -1,17 +1,31 @@
 // Dependencies
 const express = require('express');
 const router = express.Router();
-const authController = require('./../controllers/authController');
+const {
+  signup,
+  login,
+  protect,
+  logout,
+  verifyAccount,
+  forgotPassword,
+  resetPassword,
+  addToStarred,
+  favourites,
+  fetchData,
+  updateProfile,
+} = require('./../controllers/authController');
 
-router.route('/signup').post(authController.signup);
-router.route('/login').post(authController.login);
-router.route('/logout').post(authController.protect, authController.logout);
-router.route('/verify').get(authController.verifyAccount);
-router.route('/new/password').post(authController.forgotPassword);
-router.route('/reset/password').post(authController.resetPassword);
-router.route('/add/starred').post(authController.protect, authController.addToStarred);
-router.route('/fetch/favourites').post(authController.protect, authController.favourites);
-router.route('/fetch/data').post(authController.protect, authController.fetchData);
-router.route('/update/profile').post(authController.protect, authController.updateProfile);
+// router router
+router.post('/signup', signup);
+router.post('/login', login);
+router.post('/logout', protect, logout);
+router.get('/verify', verifyAccount);
+router.post('/new/password', forgotPassword);
+router.post('/reset/password', resetPassword);
+router.post('/add/starred', protect, addToStarred);
+router.post('/fetch/favourites', protect, favourites);
+router.post('/fetch/data', protect, fetchData);
+router.post('/update/profile', protect, updateProfile);
 
+// export
 module.exports = router;

@@ -1,5 +1,7 @@
+// Dependencies
 const nodemailer = require('nodemailer');
 
+// nodemailer setup
 const sendEmail = async (options) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -18,4 +20,6 @@ const sendEmail = async (options) => {
 
   await transporter.sendMail(mailOptions);
 };
+
+// export
 module.exports = sendEmail;
