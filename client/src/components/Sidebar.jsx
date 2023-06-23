@@ -28,7 +28,7 @@ import ExitToAppRounded from '@mui/icons-material/ExitToAppRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 import Star from '@mui/icons-material/Star';
 
-const drawerWidth = 240;
+const drawerWidth = 225;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -76,6 +76,8 @@ const AppBar = styled(MuiAppBar, {
       duration: theme.transitions.duration.enteringScreen,
     }),
   }),
+  backgroundColor: '#1976d2', // Change the background color to red
+  color: 'white', // Change the text color to white
 }));
 
 const Drawer = styled(MuiDrawer, {

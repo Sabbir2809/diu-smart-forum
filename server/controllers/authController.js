@@ -1,5 +1,6 @@
 // Dependencies
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const User = require('../models/userModel');
 const Post = require('../models/postModel');
 const UnverifiedUser = require('../models/UnverifiedUser');
@@ -50,8 +51,8 @@ exports.signup = catchAsync(async (req, res) => {
     const token = signToken(name);
     await UnverifiedUser.create({ name: name, email: email, password: hashedPassword, token: token });
 
-    const verificationURL = `http://localhost:5000/user/verify?user=${name}&token=${token}`;
-    const reportURL = `http://localhost:3000/report`;
+    const verificationURL = `${process.env.SERVER_URL}/user/verify?user=${name}&token=${token}`;
+    const reportURL = `${process.env.CLIENT_URL}/report`;
 
     const message = `
     <html>
@@ -134,8 +135,8 @@ exports.forgotPassword = catchAsync(async (req, res, next) => {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
-  const resetURL = `http://localhost:3000/new/password?id=${resetToken}/`;
-  const reportURL = `http://localhost:3000/report`;
+  const resetURL = `${process.env.CLIENT_URL}/new/password?id=${resetToken}/`;
+  const reportURL = `${process.env.CLIENT_URL}/report`;
 
   let message = `Forgot your password ? submit a PATCH request with your new password and password confirm to ${resetURL}`;
   message = `<html>

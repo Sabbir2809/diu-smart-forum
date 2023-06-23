@@ -1,5 +1,6 @@
 // Dependencies
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const UnverifiedUser = require('../models/UnverifiedUser');
 const User = require('../models/userModel');
 const catchAsync = require('../utils/catchAsync');
@@ -19,8 +20,6 @@ exports.verifyAccount = catchAsync(async (req, res) => {
         if (!user) {
           res.send('Account is already verified!');
           return;
-          // res.redirect(`http://localhost:3000/response?status=100`);
-          // return;
         }
         await UnverifiedUser.findOneAndDelete({ name: data.id });
         await User.create({
@@ -37,10 +36,10 @@ exports.verifyAccount = catchAsync(async (req, res) => {
         response.status = 201;
       }
       res.redirect(
-        `http://localhost:3000/response?message=${response.message}&navigate=${true}&error=${false}`
+        `${process.env.CLIENT_URL}/response?message=${response.message}&navigate=${true}&error=${false}`
       );
     });
   } catch (err) {
-    res.redirect(`http://localhost:3000/response?status=503`);
+    res.redirect(`${process.env.CLIENT_URL}/response?status=503`);
   }
 });
