@@ -1,11 +1,11 @@
 // Dependencies
 const express = require('express');
 const app = express();
+require('dotenv').config();
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const cloudinary = require('cloudinary').v2;
-require('dotenv').config();
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const doubtRoutes = require('./routes/doubtRoutes');

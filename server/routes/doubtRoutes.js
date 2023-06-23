@@ -1,7 +1,6 @@
 // Dependencies
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../controllers/authController');
 const {
   createDoubt,
   deleteDoubt,
@@ -12,6 +11,7 @@ const {
   sortReplies,
   addReply,
 } = require('../controllers/doubtController');
+const { protect } = require('../middleware/protect');
 
 // doubt router
 router.post('/create', protect, createDoubt);

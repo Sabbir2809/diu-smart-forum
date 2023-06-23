@@ -1,12 +1,12 @@
 // Dependencies
 const express = require('express');
 const router = express.Router();
+const { verifyAccount } = require('../middleware/verifyAccount');
+const { protect } = require('../middleware/protect');
 const {
   signup,
   login,
-  protect,
   logout,
-  verifyAccount,
   forgotPassword,
   resetPassword,
   addToStarred,

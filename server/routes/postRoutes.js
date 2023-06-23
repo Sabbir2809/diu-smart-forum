@@ -1,8 +1,8 @@
 // Dependencies
 const express = require('express');
 const router = express.Router();
-const { protect } = require('../controllers/authController');
 const { createPost, fetchAll, fetchOptions, vote } = require('./../controllers/postController');
+const { protect } = require('../middleware/protect');
 
 // post router
 router.post('/create', protect, createPost);

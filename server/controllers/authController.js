@@ -1,37 +1,11 @@
-const catchAsync = require('../utils/catchAsync');
-const User = require('../models/userModel');
-const UnverifiedUser = require('../models/UnverifiedUser');
-const AppError = require('../utils/appError');
-const sendEmail = require('../utils/email');
+// Dependencies
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const User = require('../models/userModel');
 const Post = require('../models/postModel');
-
-const hashPassword = async (pass) => {
-  pass = await bcrypt.hash(pass, 10);
-  return pass;
-};
-
-const signToken = (id, expiryTime) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: expiryTime === undefined ? process.env.JWT_EXPIRES_IN : expiryTime,
-  });
-};
-
-const createSendToken = (user, statusCode, res, expiryTime) => {
-  const token = signToken(user._id, expiryTime);
-
-  const cookieOptions = {
-    expires: new Date(Date.now() + 5 * 24 * 3600000),
-    httpOnly: true,
-  };
-
-  res.cookie('jwt', token, cookieOptions);
-  res.status(statusCode).json({
-    token: token,
-    data: user,
-  });
-};
+const UnverifiedUser = require('../models/UnverifiedUser');
+const catchAsync = require('../utils/catchAsync');
+const sendEmail = require('../utils/email');
+const { createSendToken, signToken, hashPassword } = require('../middleware/createToken');
 
 // signup
 exports.signup = catchAsync(async (req, res) => {
@@ -46,6 +20,7 @@ exports.signup = catchAsync(async (req, res) => {
     verifiedUser = await User.findOne({ email: email });
     if (verifiedUser) {
       res.status(409).json('User already exist with provided Email!!');
+      return;
     }
 
     let findUser = await UnverifiedUser.findOne({ name: name });
@@ -118,44 +93,6 @@ exports.signup = catchAsync(async (req, res) => {
   }
 });
 
-exports.verifyAccount = catchAsync(async (req, res) => {
-  const token = req.query.token;
-  try {
-    jwt.verify(token, process.env.JWT_SECRET, async (err, data) => {
-      let response = {};
-      if (err) {
-        response.isError = true;
-        response.message = 'Verification link is expired!!';
-        response.status = 403;
-      } else {
-        const user = await UnverifiedUser.findOne({ name: data.id });
-        if (!user) {
-          res.redirect(`http://localhost:3000/response?status=100`);
-          return;
-        }
-        await UnverifiedUser.findOneAndDelete({ name: data.id });
-        await User.create({
-          name: user.name,
-          displayName: user.name,
-          photo: process.env.DEFAULT_PROFILE_PIC,
-          email: user.email,
-          password: user.password,
-        });
-
-        response.isError = false;
-        response.message =
-          'Your Account is Verified Successfully :) Please wait you will automatically be redirected to login page';
-        response.status = 201;
-      }
-      res.redirect(
-        `http://localhost:3000/response?message=${response.message}&navigate=${true}&error=${false}`
-      );
-    });
-  } catch (err) {
-    res.redirect(`http://localhost:3000/response?status=503`);
-  }
-});
-
 // login
 exports.login = catchAsync(async (req, res) => {
   const { index, password } = req.body;
@@ -164,6 +101,7 @@ exports.login = catchAsync(async (req, res) => {
   if (!user) {
     user = await User.findOne({ name: index });
   }
+
   if (!user) {
     res.status(404).json('User does not exists!!');
     return;
@@ -261,35 +199,6 @@ exports.myProfile = catchAsync(async (req, res, next) => {
   res.status(200).json({
     data: req.user,
   });
-});
-
-exports.protect = catchAsync(async (req, res, next) => {
-  const { headers } = req.body;
-  let token;
-  if (headers.authorization && headers.authorization.startsWith('Bearer')) {
-    token = headers.authorization.split(' ')[1];
-  }
-  if (!token || token === 'undefined' || token === 'null') {
-    return next(new AppError('You are not logged in!! Please log in to get access', 401));
-  }
-
-  try {
-    //* 2) verify token
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-
-    //* 3) check if user is still exist
-    const freshUser = await User.findById(decoded.id);
-
-    if (!freshUser) {
-      return next(new AppError('The user belonging to this token is not exist', 401));
-    }
-    req.body.user = freshUser;
-    next();
-  } catch (err) {
-    if (err.message === 'jwt expired') {
-      return next(new AppError('Your session is expired!! Please log in again', 401));
-    }
-  }
 });
 
 // add to starred
