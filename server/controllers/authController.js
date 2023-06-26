@@ -59,7 +59,7 @@ exports.signup = catchAsync(async (req, res) => {
     <body>
         Hello user,
         <br />
-            Thankyou for joining with us. Click the below Link to verify your account.
+            Thank you for joining with us. Click the below Link to verify your account.
             Please note that the link will work only for 2 hours so kindly verify before it expires.
             <br />
               <a href='${verificationURL}'>Click Here</a>
@@ -69,7 +69,7 @@ exports.signup = catchAsync(async (req, res) => {
               <a href='${reportURL}'>Click Here</a>
             <br />
         Regards,
-        CodePro Team
+            DIU SMART FORUM
     </html>
     </body>
     `;

@@ -16,8 +16,6 @@ const CreatePost = () => {
   const user = useSelector((state) => state?.user);
   const navigate = useNavigate();
 
-  console.log(user.token);
-
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [file, setFile] = useState(null);

@@ -225,7 +225,7 @@ const DisplayFavourites = () => {
                     <SearchIcon />
                   </SearchIconWrapper>
                   <StyledInputBase
-                    placeholder='Search by name…'
+                    placeholder='Search by Title, Tags'
                     inputProps={{ 'aria-label': 'search' }}
                     value={searchField}
                     onChange={(e) => setSearchField(e.target.value)}

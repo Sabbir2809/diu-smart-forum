@@ -9,7 +9,7 @@
 .signup-wrapper {
   width: 560px;
   padding: 2rem;
-  border: 1px solid black;
+  border: 1px solid #1772cd;
   border-radius: 0.5rem;
   padding: 4rem 5rem;
 }
@@ -17,7 +17,7 @@
 .login-wrapper {
   width: 480px;
   padding: 2rem;
-  border: 1px solid black;
+  border: 1px solid #1772cd;
   border-radius: 0.5rem;
   padding: 4rem 5rem;
 }

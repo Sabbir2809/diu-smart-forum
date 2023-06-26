@@ -5,7 +5,7 @@ import { AppContext } from './context/AppContext';
 
 import CreatePost from './components/CreatePost';
 import DisplayDoubt from './pages/DisplayDoubt';
-import DisplayFavourites from './components/DisplayFavourites';
+// import DisplayFavourites from './components/DisplayFavourites';
 import DisplayProfile from './components/DisplayProfile';
 import EditProfile from './components/EditProfile';
 import ForgotPassword from './pages/ForgotPassword';
@@ -24,12 +24,12 @@ function App() {
 
   const routes = [
     { path: '/', element: <Discuss /> },
-    { path: '/share-file', element: <HomePage /> },
+    { path: '/view-notes', element: <HomePage /> },
     { path: '/signup', element: user ? <Discuss /> : <Signup /> },
     { path: '/login', element: user ? <Discuss /> : <Login /> },
-    { path: '/create/file', element: user ? <CreatePost /> : <Login /> },
+    { path: '/upload/note', element: user ? <CreatePost /> : <Login /> },
     { path: '/account', element: user ? <DisplayProfile /> : <Login /> },
-    { path: '/starred', element: user ? <DisplayFavourites /> : <Login /> },
+    // { path: '/starred', element: user ? <DisplayFavourites /> : <Login /> },
     { path: '/edit/profile', element: user ? <EditProfile /> : <Login /> },
     { path: '/doubt', element: <DisplayDoubt /> },
     { path: '/forgot', element: <ForgotPassword /> },

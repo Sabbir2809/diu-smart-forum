@@ -3,97 +3,102 @@ const validator = require('validator');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
-const userSchema = new mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, 'user must have a name'],
-  },
+const userSchema = new mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: [true, 'user must have a name'],
+    },
 
-  displayName: {
-    type: String,
-    default: '',
-  },
+    displayName: {
+      type: String,
+      default: '',
+    },
+    email: {
+      type: String,
+      required: [true, 'user must provide an email'],
+      unique: true,
+      lowercase: true,
+      validate: [validator.isEmail, 'please provide a valid email'],
+    },
 
-  about: {
-    type: String,
-    default: '',
-  },
+    photo: {
+      type: String,
+      default: process.env.DEFAULT_PROFILE_PIC,
+    },
 
-  gender: {
-    type: String,
-    default: 'male',
-  },
+    password: {
+      type: String,
+      required: [true, 'Please provide a password'],
+      minlength: 8,
+    },
 
-  githubLink: {
-    type: 'String',
-    default: '',
-  },
+    gender: {
+      type: String,
+      default: 'male',
+    },
 
-  linkedInLink: {
-    type: String,
-    default: '',
-  },
+    about: {
+      type: String,
+      default: '',
+    },
 
-  technicalSkills: {
-    type: Array,
-    default: [],
-  },
+    role: {
+      type: String,
+      enum: ['user', 'expert', 'admin'],
+      default: 'user',
+    },
 
-  email: {
-    type: String,
-    required: [true, 'user must provide an email'],
-    unique: true,
-    lowercase: true,
-    validate: [validator.isEmail, 'please provide a valid email'],
-  },
+    posts: {
+      type: mongoose.Schema.ObjectId,
+      ref: 'Post',
+    },
 
-  photo: {
-    type: String,
-    default: process.env.DEFAULT_PROFILE_PIC,
-  },
+    favourites: {
+      type: Array,
+      default: [],
+    },
 
-  password: {
-    type: String,
-    required: [true, 'Please provide a password'],
-    minlength: 8,
-  },
+    githubLink: {
+      type: 'String',
+      default: '',
+    },
 
-  role: {
-    type: String,
-    enum: ['user', 'expert', 'admin'],
-    default: 'user',
-  },
+    linkedInLink: {
+      type: String,
+      default: '',
+    },
 
-  posts: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'Post',
-  },
+    technicalSkills: {
+      type: Array,
+      default: [],
+    },
 
-  favourites: {
-    type: Array,
-    default: [],
-  },
+    reputation: {
+      type: Number,
+      default: 0,
+    },
 
-  materialCount: {
-    type: Number,
-    default: 0,
-  },
+    materialCount: {
+      type: Number,
+      default: 0,
+    },
 
-  doubtsCount: {
-    type: Number,
-    default: 0,
-  },
+    doubtsCount: {
+      type: Number,
+      default: 0,
+    },
 
-  repliesCount: {
-    type: Number,
-    default: 0,
+    repliesCount: {
+      type: Number,
+      default: 0,
+    },
   },
-
-  reputation: {
-    type: Number,
-    default: 0,
-  },
-});
+  {
+    timestamps: true,
+    versionKey: false,
+  }
+);
 userSchema.methods.correctPassword = async (candidatePassword, userPassword) =>
   await bcrypt.compare(candidatePassword, userPassword);
 

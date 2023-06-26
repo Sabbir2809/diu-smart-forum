@@ -19,16 +19,16 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import ShareRounded from '@mui/icons-material/ShareRounded';
-import AddRounded from '@mui/icons-material/AddRounded';
-import NearMeRounded from '@mui/icons-material/NearMeRounded';
+import ShareRounded from '@mui/icons-material/FileOpen';
+import UploadFile from '@mui/icons-material/UploadFile';
+import ForumRounded from '@mui/icons-material/ForumRounded';
 import LoginRounded from '@mui/icons-material/LoginRounded';
 import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ExitToAppRounded from '@mui/icons-material/ExitToAppRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-import Star from '@mui/icons-material/Star';
+// import Star from '@mui/icons-material/Star';
 
-const drawerWidth = 225;
+const drawerWidth = 170;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,
@@ -161,15 +161,15 @@ export default function Sidebar() {
                   mr: open ? 3 : 'auto',
                   justifyContent: 'center',
                 }}>
-                <NearMeRounded className='customized_blue font_verdana' />
+                <ForumRounded className='customized_blue font_verdana' />
               </ListItemIcon>
-              <ListItemText primary={'Discuss'} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary={'Forum'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
           {user && (
             <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
-                onClick={() => navigate('/create/file')}
+                onClick={() => navigate('/upload/note')}
                 className='customized_blue font_verdana'
                 onMouseEnter={handleOpenEvent}
                 sx={{
@@ -183,15 +183,15 @@ export default function Sidebar() {
                     mr: open ? 3 : 'auto',
                     justifyContent: 'center',
                   }}>
-                  <AddRounded className='customized_blue font_verdana' />
+                  <UploadFile className='customized_blue font_verdana' />
                 </ListItemIcon>
-                <ListItemText primary={'Create File'} sx={{ opacity: open ? 1 : 0 }} />
+                <ListItemText primary={'Upload Note'} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
           )}
           <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
-              onClick={() => navigate('/share-file')}
+              onClick={() => navigate('/view-notes')}
               className='customized_blue font_verdana'
               onMouseEnter={handleOpenEvent}
               sx={{
@@ -207,11 +207,11 @@ export default function Sidebar() {
                 }}>
                 <ShareRounded className='customized_blue font_verdana' />
               </ListItemIcon>
-              <ListItemText primary={'Share'} sx={{ opacity: open ? 1 : 0 }} />
+              <ListItemText primary={'View Notes'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
 
-          {user && (
+          {/* {user && (
             <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 onClick={() => navigate('/starred')}
@@ -233,7 +233,7 @@ export default function Sidebar() {
                 <ListItemText primary={'Starred'} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-          )}
+          )} */}
 
           {/* <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton

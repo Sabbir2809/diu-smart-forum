@@ -92,156 +92,130 @@ const Discuss = () => {
   }, [selectedTags, allDoubts, searchField]);
 
   return (
-    <div className='discuss-outer'>
-      <div className='discuss-wrapper'>
-        <SnackbarProvider maxSnack={3}></SnackbarProvider>
-        {openPostDialog && <DisplayPostComponent />}
-        <div className='discuss-main-component'>
-          <div className='discuss-main-component-wrapper'>
-            <div className='filtering-outer'>
-              <div className='filtering-wrapper'>
-                <div className='filter-buttons'>
-                  <Button
-                    onClick={() => {
-                      setDoubts((state) =>
-                        state?.sort(
-                          (a, b) =>
-                            Date.parse(b?.doubtDetails?.createdAt) - Date.parse(a?.doubtDetails?.createdAt)
-                        )
-                      );
-                      setCriteria('newest_to_oldest');
-                    }}
-                    className={`custom_filter_btn ${
-                      criteria === 'newest_to_oldest' ? 'custom_filter_btn_active' : ''
-                    }`}>
-                    Newest to Oldest
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      setDoubts((state) =>
-                        state?.sort(
-                          (a, b) => b?.doubtDetails?.upVotes?.length - a?.doubtDetails?.upVotes?.length
-                        )
-                      );
-                      setCriteria('most_votes');
-                    }}
-                    startIcon={<WhatshotRoundedIcon />}
-                    className={`custom_filter_btn ${
-                      criteria === 'most_votes' ? 'custom_filter_btn_active' : ''
-                    }`}>
-                    Most Votes
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      setCriteria('new_post');
-                      setOpenPostDialog(true);
-                    }}
-                    className={`custom_filter_btn ${
-                      criteria === 'new_post' ? 'custom_filter_btn_active' : ''
-                    }`}
-                    startIcon={<AddRoundedIcon />}>
-                    New
-                  </Button>
-                </div>
-                <div className='action-buttons'>
-                  <div className='search-by-name'>
-                    <Search className='search-div'>
-                      <StyledInputBase
-                        placeholder='Search by name…'
-                        inputProps={{ 'aria-label': 'search' }}
-                        value={searchField}
-                        onChange={(e) => setSearchField(e.target.value)}
-                      />
-                      <IconButton onClick={() => setSearchField('')}>
-                        <CloseRounded />
-                      </IconButton>
-                    </Search>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className='doubts-outer'>
-              <div className='doubts-wrapper'>
-                {doubts?.map(({ doubtDetails, ownerInfo }, idx) => (
-                  <div key={idx} className='doubt-preview-outer'>
-                    <div className='doubt-preview-wrapper'>
-                      <div className='dynamic-info'>
-                        <div className='owner-profile'>
-                          <Avatar style={{ width: 40, height: 40 }} src={ownerInfo?.photo} />
-                        </div>
-                        <div className='doubt-info'>
-                          <div className='doubt-title-and-tags-info'>
-                            <div
-                              onClick={() => navigate(`/doubt?id=${doubtDetails._id}`)}
-                              className='doubt-title'>
-                              {doubtDetails?.doubtTitle?.split(' ')?.map((word, idx) => {
-                                if (idx < 3) return word + ' ';
-                                else if (idx === 3) return word + '...';
-                                return '';
-                              })}
-                            </div>
-                            <InputLabel
-                              className='doubts-tags'
-                              style={{ width: '250px', overflowX: 'hidden' }}>
-                              {doubtDetails?.tags?.map((tag, idx) => (
-                                <Chip
-                                  key={idx}
-                                  onClick={() => {
-                                    if (selectedTags.indexOf(tag) === -1)
-                                      setSelectedTags((state) => [...state, tag]);
-                                    else setSelectedTags((state) => state.filter((all) => all !== tag));
-                                  }}
-                                  className={`home-post-tags ${
-                                    selectedTags.indexOf(tag) !== -1 ? 'active' : ''
-                                  }`}
-                                  label={tag}
-                                />
-                              ))}
-                            </InputLabel>
-                          </div>
-                          <div className='doubt-info'>
-                            <div className='user-info'>
-                              {`${ownerInfo?.name} created at ${new Date(
-                                doubtDetails?.createdAt
-                              ).toLocaleDateString()} | ${new Date(
-                                doubtDetails?.createdAt
-                              ).getHours()}:${new Date(doubtDetails?.createdAt).getMinutes()}`}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className='static-info'>
-                        <div className='info-outer'>
-                          <VisibilityRounded />
-                          {doubtDetails?.views}
-                        </div>
-                        <div className='info-outer'>
-                          <ArrowDropUpSharpIcon />
-                          {doubtDetails?.upVotes?.length}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          <div className='doubts-tags-outer'>
-            <div className='doubts-tags-wrapper'>
-              {tags?.map((tag) => (
-                <Chip
-                  onClick={() => {
-                    if (selectedTags.indexOf(tag) === -1) setSelectedTags((state) => [...state, tag]);
-                    else setSelectedTags((state) => state.filter((all) => all !== tag));
-                  }}
-                  className={`home-post-tags ${selectedTags.indexOf(tag) !== -1 ? 'active' : ''}`}
-                  key={tag}
-                  label={tag}
-                />
-              ))}
-            </div>
+    <div className='discuss-wrapper'>
+      <div className='filtering-wrapper'>
+        <div className='filter-buttons'>
+          <Button
+            onClick={() => {
+              setDoubts((state) =>
+                state?.sort(
+                  (a, b) => Date.parse(b?.doubtDetails?.createdAt) - Date.parse(a?.doubtDetails?.createdAt)
+                )
+              );
+              setCriteria('newest_to_oldest');
+            }}
+            className={`custom_filter_btn ${
+              criteria === 'newest_to_oldest' ? 'custom_filter_btn_active' : ''
+            }`}>
+            Newest to Oldest
+          </Button>
+          <Button
+            onClick={() => {
+              setDoubts((state) =>
+                state?.sort((a, b) => b?.doubtDetails?.upVotes?.length - a?.doubtDetails?.upVotes?.length)
+              );
+              setCriteria('most_votes');
+            }}
+            startIcon={<WhatshotRoundedIcon />}
+            className={`custom_filter_btn ${criteria === 'most_votes' ? 'custom_filter_btn_active' : ''}`}>
+            Most Votes
+          </Button>
+
+          <Button
+            variant='contained'
+            onClick={() => {
+              setCriteria('new_post');
+              setOpenPostDialog(true);
+            }}
+            className={`custom_filter_btn ${criteria === 'new_post' ? 'custom_filter_btn_active' : ''}`}
+            startIcon={<AddRoundedIcon />}>
+            New Post
+          </Button>
+        </div>
+        <div className='action-buttons'>
+          <div className='search-by-name'>
+            <Search className='search-div'>
+              <StyledInputBase
+                placeholder='Search by Title, Tags'
+                inputProps={{ 'aria-label': 'search' }}
+                value={searchField}
+                onChange={(e) => setSearchField(e.target.value)}
+              />
+              <IconButton onClick={() => setSearchField('')}>
+                <CloseRounded />
+              </IconButton>
+            </Search>
           </div>
         </div>
+      </div>
+      <div className='doubts-tags-wrapper'>
+        {tags?.map((tag) => (
+          <Chip
+            onClick={() => {
+              if (selectedTags.indexOf(tag) === -1) setSelectedTags((state) => [...state, tag]);
+              else setSelectedTags((state) => state.filter((all) => all !== tag));
+            }}
+            className={`home-post-tags ${selectedTags.indexOf(tag) !== -1 ? 'active' : ''}`}
+            key={tag}
+            label={tag}
+          />
+        ))}
+      </div>
+      <SnackbarProvider maxSnack={3}></SnackbarProvider>
+      {openPostDialog && <DisplayPostComponent />}
+      <div className='doubts-wrapper'>
+        {doubts?.map(({ doubtDetails, ownerInfo }, idx) => (
+          <div key={idx} className='doubt-preview-wrapper'>
+            <div className='dynamic-info'>
+              <div className='owner-profile'>
+                <Avatar style={{ width: 40, height: 40 }} src={ownerInfo?.photo} />
+              </div>
+              <div className='doubt-info'>
+                <div className='doubt-title-and-tags-info'>
+                  <div onClick={() => navigate(`/doubt?id=${doubtDetails._id}`)} className='doubt-title'>
+                    {doubtDetails?.doubtTitle?.split(' ')?.map((word, idx) => {
+                      if (idx < 3) return word + ' ';
+                      else if (idx === 3) return word + '...';
+                      return '';
+                    })}
+                  </div>
+                  <InputLabel className='doubts-tags' style={{ width: '250px', overflowX: 'hidden' }}>
+                    {doubtDetails?.tags?.map((tag, idx) => (
+                      <Chip
+                        key={idx}
+                        onClick={() => {
+                          if (selectedTags.indexOf(tag) === -1) setSelectedTags((state) => [...state, tag]);
+                          else setSelectedTags((state) => state.filter((all) => all !== tag));
+                        }}
+                        className={`home-post-tags ${selectedTags.indexOf(tag) !== -1 ? 'active' : ''}`}
+                        label={tag}
+                      />
+                    ))}
+                  </InputLabel>
+                </div>
+                <div className='doubt-info'>
+                  <div className='user-info'>
+                    {`${ownerInfo?.name} created at ${new Date(
+                      doubtDetails?.createdAt
+                    ).toLocaleDateString()} | ${new Date(doubtDetails?.createdAt).getHours()}:${new Date(
+                      doubtDetails?.createdAt
+                    ).getMinutes()}`}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className='static-info'>
+              <div className='info-outer'>
+                <VisibilityRounded />
+                {doubtDetails?.views}
+              </div>
+              <div className='info-outer'>
+                <ArrowDropUpSharpIcon />
+                {doubtDetails?.upVotes?.length}
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
