@@ -65,7 +65,7 @@ const Login = () => {
       <div className='login-wrapper'>
         <div className='flex-center-wrapper row-gap-2'>
           <div className='company-title'>DIU SMART FORUM</div>
-          <div className='page-title'>Sign in</div>
+          <div className='page-title'>Login</div>
           <div className='signup-form'>
             <div className='input-item'>
               <TextField
@@ -105,7 +105,7 @@ const Login = () => {
                 Sign up
               </Button>
               <Button onClick={handleLogin} variant='contained' disableElevation disabled={disableSubmit}>
-                {disableSubmit ? <CircularProgress style={{ width: '20px', height: '20px' }} /> : 'Sign in'}
+                {disableSubmit ? <CircularProgress style={{ width: '20px', height: '20px' }} /> : 'Login'}
               </Button>
             </div>
           </div>

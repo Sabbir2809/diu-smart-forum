@@ -7,6 +7,7 @@ import { Alert } from '@mui/material';
 
 const Signup = () => {
   const [inputName, setInputName] = useState('');
+  const [inputDepartment, setInputDepartment] = useState('');
   const [inputEmail, setInputEmail] = useState('');
   const [inputPassword, setInputPassword] = useState('');
   const [disableSubmit, setDisableSubmit] = useState(false);
@@ -36,6 +37,7 @@ const Signup = () => {
 
     signUpFunction({
       name: inputName,
+      department: inputDepartment,
       email: inputEmail,
       password: inputPassword,
     }).then(({ data, error }) => {
@@ -79,7 +81,7 @@ const Signup = () => {
       <div className='signup-wrapper'>
         <div className='flex-center-wrapper row-gap-2'>
           <div className='company-title'>DIU SMART FORUM</div>
-          <div className='page-title'>Create Account</div>
+          <div className='page-title'>Sign up</div>
           <div className='signup-form'>
             <div className='input-item'>
               <TextField
@@ -97,12 +99,25 @@ const Signup = () => {
             </div>
             <div className='input-item'>
               <TextField
+                value={inputDepartment}
+                onChange={(e) => setInputDepartment(e.target.value)}
+                className='custom-input-field'
+                type='text'
+                variant='outlined'
+                label='Which Department'
+                margin='dense'
+                id='input-department'
+                autoFocus={true}
+              />
+            </div>
+            <div className='input-item'>
+              <TextField
                 value={inputEmail}
                 onChange={(e) => setInputEmail(e.target.value)}
                 className='custom-input-field'
                 type='email'
                 variant='outlined'
-                label='Email'
+                label='Enter your Email Address'
                 margin='dense'
                 id='input-email'
                 autoComplete='off'
@@ -130,7 +145,7 @@ const Signup = () => {
 
             <div className='button-group'>
               <Button onClick={() => navigate('/login')} variant='text'>
-                Sign in
+                Login
               </Button>
               <Button onClick={handleSignup} variant='contained' disableElevation disabled={disableSubmit}>
                 {disableSubmit ? (

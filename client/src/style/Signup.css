@@ -3,23 +3,21 @@
   /* height: calc(100vh - 60px) !important; */
   justify-content: center;
   align-items: center;
-  margin-top: 7% !important;
+  margin-top: 6% !important;
 }
 
 .signup-wrapper {
-  width: 560px;
-  padding: 2rem;
-  border: 1px solid #1772cd;
+  width: 520px;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   border-radius: 0.5rem;
-  padding: 4rem 5rem;
+  padding: 2rem 4rem;
 }
 
 .login-wrapper {
-  width: 480px;
-  padding: 2rem;
-  border: 1px solid #1772cd;
+  width: 520px;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
   border-radius: 0.5rem;
-  padding: 4rem 5rem;
+  padding: 2rem 4rem;
 }
 
 .flex-center-wrapper {
@@ -33,11 +31,6 @@
   row-gap: 2rem;
 }
 
-#company-logo {
-  width: 8rem !important;
-  height: 2.7rem !important;
-}
-
 .company-title {
   display: flex;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -46,7 +39,7 @@
 }
 
 .page-title {
-  font-size: xx-large;
+  font-size: x-large;
 }
 
 /* .signup-outer{

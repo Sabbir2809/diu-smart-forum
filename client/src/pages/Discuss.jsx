@@ -122,7 +122,7 @@ const Discuss = () => {
           </Button>
 
           <Button
-            variant='contained'
+            variant='outlined'
             onClick={() => {
               setCriteria('new_post');
               setOpenPostDialog(true);
@@ -168,16 +168,18 @@ const Discuss = () => {
           <div key={idx} className='doubt-preview-wrapper'>
             <div className='dynamic-info'>
               <div className='owner-profile'>
-                <Avatar style={{ width: 40, height: 40 }} src={ownerInfo?.photo} />
+                <Avatar style={{ width: 50, height: 50 }} src={ownerInfo?.photo} />
               </div>
               <div className='doubt-info'>
                 <div className='doubt-title-and-tags-info'>
                   <div onClick={() => navigate(`/doubt?id=${doubtDetails._id}`)} className='doubt-title'>
-                    {doubtDetails?.doubtTitle?.split(' ')?.map((word, idx) => {
-                      if (idx < 3) return word + ' ';
-                      else if (idx === 3) return word + '...';
-                      return '';
-                    })}
+                    <p>
+                      {doubtDetails?.doubtTitle?.split(' ')?.map((word, idx) => {
+                        if (idx < 3) return word + ' ';
+                        else if (idx === 3) return word + '...';
+                        return '';
+                      })}
+                    </p>
                   </div>
                   <InputLabel className='doubts-tags' style={{ width: '250px', overflowX: 'hidden' }}>
                     {doubtDetails?.tags?.map((tag, idx) => (
