@@ -18,7 +18,7 @@ exports.createPost = catchAsync(async (req, res) => {
       media: media,
     });
     user.materialCount += 1;
-    await user.save();
+    await user.create();
 
     res.status(201).json(newPost);
   } catch (err) {

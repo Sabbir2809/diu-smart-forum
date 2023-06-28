@@ -5,7 +5,7 @@ import { AppContext } from './context/AppContext';
 
 import CreatePost from './components/CreatePost';
 import DisplayDoubt from './pages/DisplayDoubt';
-// import DisplayFavourites from './components/DisplayFavourites';
+import DisplayFavourites from './components/DisplayFavourites';
 import DisplayProfile from './components/DisplayProfile';
 import EditProfile from './components/EditProfile';
 import ForgotPassword from './pages/ForgotPassword';
@@ -31,7 +31,7 @@ function App() {
     { path: '/login', element: user ? <Discuss /> : <Login /> },
     { path: '/upload/note', element: user ? <CreatePost /> : <Login /> },
     { path: '/account', element: user ? <DisplayProfile /> : <Login /> },
-    // { path: '/starred', element: user ? <DisplayFavourites /> : <Login /> },
+    { path: '/starred', element: user ? <DisplayFavourites /> : <Login /> },
     { path: '/edit/profile', element: user ? <EditProfile /> : <Login /> },
     { path: '/doubt', element: <DisplayDoubt /> },
     { path: '/forgot', element: <ForgotPassword /> },

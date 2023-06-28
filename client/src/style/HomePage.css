@@ -92,33 +92,33 @@
   row-gap: 1rem;
   font-family: Verdana, Geneva, Tahoma, sans-serif !important;
   font-size: medium !important;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+  box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px !important;
   transition: 300ms !important;
 }
 
 .card-outer:hover {
   transition: 300ms !important;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px !important;
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px !important;
 }
 
 .post-previewing-icon {
   display: flex;
   justify-self: center;
   align-self: center;
-  width: 360px !important;
+  width: 300px !important;
   height: 120px !important;
   cursor: pointer;
   transition: 600ms ease !important;
 }
 
 .post-previewing-icon:hover {
-  /* color: #0c3762 !important; */
-  color: #0f3f70 !important;
+  color: #1772cf !important;
   transition: 600ms ease !important;
 }
 
 .post-description {
   font-family: Verdana, Geneva, Tahoma, sans-serif !important;
+  color: #0f3f70;
   font-size: medium !important;
   max-width: 360px !important;
   margin: 0.3rem 0.5rem !important;
@@ -135,8 +135,9 @@
 }
 
 .post-header {
+  color: #1772cf;
   font-family: Verdana, Geneva, Tahoma, sans-serif !important;
-  font-size: medium !important;
+  font-size: xx-large !important;
 }
 
 .home-post-tags {

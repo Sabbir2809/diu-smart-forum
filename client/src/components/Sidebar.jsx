@@ -26,7 +26,7 @@ import LoginRounded from '@mui/icons-material/LoginRounded';
 import PersonAddRounded from '@mui/icons-material/PersonAddRounded';
 import ExitToAppRounded from '@mui/icons-material/ExitToAppRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
-// import Star from '@mui/icons-material/Star';
+import Star from '@mui/icons-material/Star';
 
 const drawerWidth = 180;
 
@@ -166,6 +166,29 @@ export default function Sidebar() {
               <ListItemText primary={'Forum'} sx={{ opacity: open ? 1 : 0 }} />
             </ListItemButton>
           </ListItem>
+
+          <ListItem disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              onClick={() => navigate('/view-notes')}
+              className='customized_blue font_verdana'
+              onMouseEnter={handleOpenEvent}
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}>
+              <ListItemIcon
+                sx={{
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
+                }}>
+                <ShareRounded className='customized_blue font_verdana' />
+              </ListItemIcon>
+              <ListItemText primary={'View Notes'} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
+
           {user && (
             <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
@@ -189,29 +212,8 @@ export default function Sidebar() {
               </ListItemButton>
             </ListItem>
           )}
-          <ListItem disablePadding sx={{ display: 'block' }}>
-            <ListItemButton
-              onClick={() => navigate('/view-notes')}
-              className='customized_blue font_verdana'
-              onMouseEnter={handleOpenEvent}
-              sx={{
-                minHeight: 48,
-                justifyContent: open ? 'initial' : 'center',
-                px: 2.5,
-              }}>
-              <ListItemIcon
-                sx={{
-                  minWidth: 0,
-                  mr: open ? 3 : 'auto',
-                  justifyContent: 'center',
-                }}>
-                <ShareRounded className='customized_blue font_verdana' />
-              </ListItemIcon>
-              <ListItemText primary={'View Notes'} sx={{ opacity: open ? 1 : 0 }} />
-            </ListItemButton>
-          </ListItem>
 
-          {/* {user && (
+          {user && (
             <ListItem disablePadding sx={{ display: 'block' }}>
               <ListItemButton
                 onClick={() => navigate('/starred')}
@@ -233,7 +235,7 @@ export default function Sidebar() {
                 <ListItemText primary={'Starred'} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-          )} */}
+          )}
 
           {/* <ListItem disablePadding sx={{ display: 'block' }}>
             <ListItemButton
