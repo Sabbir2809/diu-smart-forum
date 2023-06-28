@@ -21,6 +21,8 @@ import './App.css';
 function App() {
   const user = useSelector((state) => state?.user);
   const [status, setStatus] = useState(false);
+  const [openPostDialog, setOpenPostDialog] = useState(false);
+  const [cloudName] = useState('dhawyzgll');
 
   const routes = [
     { path: '/', element: <Discuss /> },
@@ -38,7 +40,7 @@ function App() {
   ];
 
   return (
-    <AppContext.Provider value={{ user, status, setStatus }}>
+    <AppContext.Provider value={{ user, status, setStatus, openPostDialog, setOpenPostDialog, cloudName }}>
       <BrowserRouter>
         <Sidebar />
         <Routes>

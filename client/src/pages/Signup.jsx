@@ -107,7 +107,6 @@ const Signup = () => {
                 label='Which Department'
                 margin='dense'
                 id='input-department'
-                autoFocus={true}
               />
             </div>
             <div className='input-item'>

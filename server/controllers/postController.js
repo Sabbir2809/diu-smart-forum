@@ -18,11 +18,11 @@ exports.createPost = catchAsync(async (req, res) => {
       media: media,
     });
     user.materialCount += 1;
-    await user.create();
+    await user.save();
 
     res.status(201).json(newPost);
   } catch (err) {
-    res.status(500).json("Couldn't create post!! Please try again!");
+    res.status(500).json("Couldn't Create Note!! Please try again!");
   }
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useUpdateUserProfileMutation } from '../services/appApi';
 import { useSelector } from 'react-redux';
 import '../style/EditProfile.css';
@@ -21,8 +21,10 @@ import {
   Select,
   TextField,
 } from '@mui/material';
+import { AppContext } from '../context/AppContext';
 
 const EditProfile = () => {
+  const { cloudName } = useContext(AppContext);
   const user = useSelector((state) => state?.user?.data);
   const userToken = useSelector((state) => state?.user?.token);
 
@@ -51,7 +53,7 @@ const EditProfile = () => {
       return;
     }
     if (password.length > 0 && password.length < 8) {
-      enqueueSnackbar('Password has to be atleast 8 characters long!', {
+      enqueueSnackbar('Password has to be at least 8 characters long!', {
         variant: 'error',
         autoHideDuration: 3000,
       });
@@ -85,7 +87,7 @@ const EditProfile = () => {
         formData.append('file', userImg);
         formData.append('upload_preset', 'post_uploader_preset');
 
-        const response = await fetch('https://api.cloudinary.com/v1_1/dhawyzgll/image/upload', {
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
           method: 'post',
           body: formData,
         });

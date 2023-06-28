@@ -28,6 +28,7 @@
   align-items: center;
   margin-top: 10px;
   padding: 0.5rem;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
 }
 
 .doubts-wrapper {
@@ -138,6 +139,10 @@
   margin: 0.6rem;
   border-radius: 5px;
   box-shadow: rgba(136, 165, 191, 0.48) 6px 2px 16px 0px, rgba(255, 255, 255, 0.8) -6px -2px 16px 0px;
+}
+
+.doubt-preview-wrapper:hover {
+  box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 3px;
 }
 
 .static-info {

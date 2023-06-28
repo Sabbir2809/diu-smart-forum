@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { BootstrapTooltip } from './Navbar';
@@ -11,10 +11,12 @@ import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
 import ImageRoundedIcon from '@mui/icons-material/ImageRounded';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
+import { AppContext } from '../context/AppContext';
 
 const CreatePost = () => {
   const user = useSelector((state) => state?.user);
   const navigate = useNavigate();
+  const { cloudName } = useContext(AppContext);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -61,10 +63,11 @@ const CreatePost = () => {
     formData.append('upload_preset', 'post_uploader_preset');
 
     try {
-      const response = await fetch('https://api.cloudinary.com/v1_1/dhawyzgll/image/upload', {
+      const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
         method: 'post',
         body: formData,
       });
+
       let urlData = await response.json();
       urlData = urlData?.url;
       createPostFunc({
@@ -95,8 +98,8 @@ const CreatePost = () => {
           setSubmitted(false);
 
           setTimeout(() => {
-            navigate('/share-file');
-          }, 1000);
+            navigate('/view-notes');
+          }, 1500);
         }
       });
     } catch (ex) {

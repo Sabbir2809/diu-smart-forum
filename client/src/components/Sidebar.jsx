@@ -28,7 +28,7 @@ import ExitToAppRounded from '@mui/icons-material/ExitToAppRounded';
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded';
 // import Star from '@mui/icons-material/Star';
 
-const drawerWidth = 170;
+const drawerWidth = 180;
 
 const openedMixin = (theme) => ({
   width: drawerWidth,

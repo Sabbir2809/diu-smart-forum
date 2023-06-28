@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useFetchTagsMutation, useCreateDoubtMutation } from '../services/appApi';
 import {
@@ -12,9 +12,11 @@ import { Backdrop, Button, Chip, CircularProgress, Dialog, IconButton, TextField
 import JoditEditor from 'jodit-react';
 import { enqueueSnackbar, SnackbarProvider } from 'notistack';
 import { BootstrapTooltip } from './Navbar';
+import { AppContext } from '../context/AppContext';
 
 const DisplayPostComponent = ({ existingDoubt }) => {
   const userToken = useSelector((state) => state?.user?.token);
+  const { cloudName } = useContext(AppContext);
 
   const descriptionConfig = useMemo(
     () => ({
@@ -51,7 +53,7 @@ const DisplayPostComponent = ({ existingDoubt }) => {
   const [openPreview, setOpenPreview] = useState(false);
 
   const [disableSubmit, setDisableSubmit] = useState(false);
-  const [status, setStaus] = useState('Post');
+  const [status, setStatus] = useState('Post');
 
   const [fetchTagsFunction] = useFetchTagsMutation();
   const [createDoubtFunction] = useCreateDoubtMutation();
@@ -78,7 +80,7 @@ const DisplayPostComponent = ({ existingDoubt }) => {
     }
 
     setDisableSubmit(true);
-    setStaus('Uploading files...');
+    setStatus('Uploading files...');
     let fileURLS = [];
 
     for (const file of attachedFiles) {
@@ -87,7 +89,7 @@ const DisplayPostComponent = ({ existingDoubt }) => {
       formData.append('upload_preset', 'post_uploader_preset');
 
       try {
-        const response = await fetch('https://api.cloudinary.com/v1_1/dhawyzgll/image/upload', {
+        const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
           method: 'post',
           body: formData,
         });
@@ -111,7 +113,7 @@ const DisplayPostComponent = ({ existingDoubt }) => {
       fileURLS = [...existingDoubt?.media, ...fileURLS];
     }
 
-    setStaus('Posting...');
+    setStatus('Posting...');
     await createDoubtFunction({
       doubtTitle: doubtTitle,
       tags: postTags,
@@ -131,7 +133,7 @@ const DisplayPostComponent = ({ existingDoubt }) => {
           variant: 'error',
           autoHideDuration: 3000,
         });
-        setStaus('Post');
+        setStatus('Post');
         setDisableSubmit(false);
       }
     });
