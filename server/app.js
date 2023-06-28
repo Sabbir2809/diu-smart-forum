@@ -37,14 +37,18 @@ cloudinary.config({
   api_secret: process.env.CLOUD_SECRET_KEY,
 });
 
+app.get('/tags', async (req, res) => {
+  res.status(200).json(tags);
+});
+
+app.get('/', async (req, res) => {
+  res.status(200).json('DIU SMART FORUM REST API, ALL IS WELL');
+});
+
 // All Routes
 app.use('/user', userRoutes);
 app.use('/post', postRoutes);
 app.use('/doubts', doubtRoutes);
-
-app.get('/tags', async (req, res) => {
-  res.status(200).json(tags);
-});
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
