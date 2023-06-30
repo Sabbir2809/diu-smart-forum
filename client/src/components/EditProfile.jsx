@@ -22,6 +22,7 @@ import {
   TextField,
 } from '@mui/material';
 import { AppContext } from '../context/AppContext';
+import { useNavigate } from 'react-router-dom';
 
 const EditProfile = () => {
   const { cloudName } = useContext(AppContext);
@@ -43,6 +44,7 @@ const EditProfile = () => {
   const [disableSubmit, setDisableSubmit] = useState(false);
 
   const [updateProfileFunction] = useUpdateUserProfileMutation();
+  const navigate = useNavigate();
 
   const handleUpdate = async () => {
     if (displayName === '') {
@@ -327,7 +329,7 @@ const EditProfile = () => {
             </div>
             <Button
               disabled={disableSubmit}
-              onClick={() => (window.location.href = `/account?user=${user?.name}`)}
+              onClick={() => navigate(`/account?user=${user?.name}`)}
               color='info'
               className='custom-input-field update_profile_action_btn'>
               Cancel

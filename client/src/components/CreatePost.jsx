@@ -254,7 +254,7 @@ const CreatePost = () => {
         </div>
         <div className='tags-outer'>
           <div className='tags-heading'>
-            <div className='tags-title'>Select Tags from Below</div>
+            <div className='tags-title'>Select Department Tags</div>
             <BootstrapTooltip placement='right' title='Clear Tags'>
               <CloseRoundedIcon
                 style={{

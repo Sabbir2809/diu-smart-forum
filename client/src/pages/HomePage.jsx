@@ -37,6 +37,7 @@ import ThumbUpOffAltOutlinedIcon from '@mui/icons-material/ThumbUpOffAltOutlined
 import ThumbDownAltOutlinedIcon from '@mui/icons-material/ThumbDownAltOutlined';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import { useNavigate } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -102,6 +103,7 @@ const HomePage = () => {
   const [fetchAllPostsFunction] = useFetchAllPostsMutation();
   const [addPostToFavouriteFunction] = useAddPostToFavouritesMutation();
   const [voteFunction] = useAddVoteMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setLoading(true);
@@ -227,7 +229,7 @@ const HomePage = () => {
             </div>
             <div className='search-by-tags-outer'>
               <div className='tags-heading'>
-                <div className='tags-title'>Filter by tags</div>
+                <div className='tags-title'>Filter by Department Name</div>
                 <BootstrapTooltip placement='right' title='Clear Tags'>
                   <CloseRoundedIcon
                     style={{
@@ -290,7 +292,7 @@ const HomePage = () => {
                           borderRadius: '50%',
                         }}
                         id='post-owner-img'
-                        onClick={() => (window.location.href = `/account?user=${ownerInfo?.name}`)}
+                        onClick={() => navigate(`/account?user=${ownerInfo?.name}`)}
                         src={ownerInfo.photo}
                         alt={`${ownerInfo.name}'s profile`}
                       />
