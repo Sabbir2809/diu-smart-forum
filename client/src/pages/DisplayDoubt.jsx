@@ -137,7 +137,7 @@ const DisplayDoubt = () => {
                                 },
                               }).then(({ data, error }) => {
                                 if (data) {
-                                  enqueueSnackbar('Doubt deleted successfully!', {
+                                  enqueueSnackbar('Forum Post deleted successfully!', {
                                     variant: 'info',
                                     autoHideDuration: 3000,
                                   });

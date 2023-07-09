@@ -1,32 +1,26 @@
+// Dependencies
 const mongoose = require('mongoose');
 
-const replySchema = new mongoose.Schema({
-  creator: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'User',
-  },
-  reply: {
-    type: String,
-    required: [true, 'Reply cannot be empty'],
-  },
-  replyToPost: {
-    type: mongoose.Schema.ObjectId,
-    ref: 'doubt',
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now(),
-  },
-  upVotes: {
-    type: Array,
-    default: [],
+// Forum Post Replay Schema
+const replySchema = new mongoose.Schema(
+  {
+    replyToPost: { type: mongoose.Schema.ObjectId, ref: 'doubt' },
+
+    creator: { type: mongoose.Schema.ObjectId, ref: 'User' },
+
+    reply: { type: String, required: [true, 'Reply cannot be empty'] },
+
+    upVotes: { type: Array, default: [] },
+
+    downVotes: { type: Array, default: [] },
+
+    createdAt: { type: Date, default: Date.now() },
   },
 
-  downVotes: {
-    type: Array,
-    default: [],
-  },
-});
+  { timestamps: true, versionKey: false }
+);
 
+// Forum Post Replay Model
 const Reply = mongoose.model('Reply', replySchema);
+// export
 module.exports = Reply;
